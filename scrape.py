@@ -1,6 +1,7 @@
 """Scrape UM tableau for daily vaccination percentage."""
 
 from tableauscraper import TableauScraper as TS
+from datetime import datetime
 import json
 import requests
 import pandas as pd
@@ -57,6 +58,7 @@ data.loc[:, "num_vaccinated"] = (
 ).astype(int)
 
 output = {}
+output["retrieved_timestamp"] = datetime.utcnow().isoformat()
 output["vaccination_um_data"] = data.to_dict(orient="index")
 try:
     risk_data = requests.get(
