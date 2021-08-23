@@ -32,14 +32,17 @@ employees = employees.data.rename(
 ).loc[:, ["group", "total_count", "date", "percent_vaccinated"]]
 
 washtenaw = ts.getWorksheet("WashCounty Data")
-washtenaw = washtenaw.data.rename(
-    columns={
-        "Week Ending Date-alias": "date",
-        "SUM(Census Mi Population 12 Years And Older)-alias": "total_count",
-        "AGG(Percent Coverage)-alias": "percent_vaccinated",
-    },
-).loc[:, ["date", "total_count", "percent_vaccinated"]]
-washtenaw.loc[:, "group"] = "Washtenaw"
+try:
+    washtenaw = washtenaw.data.rename(
+        columns={
+            "Week Ending Date-alias": "date",
+            "SUM(Census Mi Population 12 Years And Older)-alias": "total_count",
+            "AGG(Percent Coverage)-alias": "percent_vaccinated",
+        },
+    ).loc[:, ["date", "total_count", "percent_vaccinated"]]
+    washtenaw.loc[:, "group"] = "Washtenaw"
+except:
+    print('Error getting Washtenaw data.')
 
 all_empl = ts.getWorksheet("Employee Therm (PUBLIC)")
 all_empl = all_empl.data.rename(
@@ -52,7 +55,7 @@ all_empl = all_empl.data.rename(
     },
 ).loc[:, ["group", "total_count", "date", "percent_vaccinated", "count_vaxxed"]]
 
-data = pd.concat([students, employees, washtenaw]).set_index("group")
+data = pd.concat([students, employees]).set_index("group")
 data.loc[:, "num_vaccinated"] = (
     data["total_count"] * data["percent_vaccinated"]
 ).astype(int)
