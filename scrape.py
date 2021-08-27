@@ -15,7 +15,7 @@ students = ts.getWorksheet("Therm PUBLIC Students")
 students = students.data.rename(
     columns={
         "Max Admin Date (today)-alias": "date",
-        "AGG(Vaccinated- Percent (PUBLIC))-value": "percent_vaccinated",
+        "AGG(Vaccinated- Percent (PUBLIC))-alias": "percent_vaccinated",
     },
 ).loc[:, ["date", "percent_vaccinated"]]
 students.loc[:, "group"] = "Students"
