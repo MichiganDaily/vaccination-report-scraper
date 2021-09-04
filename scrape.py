@@ -15,12 +15,12 @@ students = ts.getWorksheet("Therm PUBLIC Students")
 students = students.data.rename(
     columns={
         "Max Admin Date (today)-alias": "date",
-        # "AGG(Vaccinated- Percent (PUBLIC))-alias": "percent_vaccinated",
-        "ATTR(Vaccinated- Percent (92 FIXED PUBLIC))-alias": "percent_vaccinated"
+        "AGG(Vaccinated- Percent (PUBLIC))-alias": "percent_vaccinated",
+        # "ATTR(Vaccinated- Percent (92 FIXED PUBLIC))-alias": "percent_vaccinated"
     },
 ).loc[:, ["date", "percent_vaccinated"]]
 students.loc[:, "group"] = "Students"
-students.loc[:, "total_count"] = 47000  # based on 5-year avg for Fall
+students.loc[:, "total_count"] = 50000  # based on preliminary enrollment data
 
 employees = ts.getWorksheet("Fac/Staff Therm (PUBLIC)")
 employees = employees.data.rename(
